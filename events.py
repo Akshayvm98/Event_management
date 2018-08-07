@@ -4,6 +4,7 @@ import csv
 
 
 
+
 class EventManagement(tk.Tk):
 	def __init__(self,*args, **kwargs):
 		tk.Tk.__init__(self, *args, **kwargs)
@@ -100,15 +101,18 @@ class Add_participants_page(tk.Frame):
 		self.submit = tk.Button(self, text = "Submit", command =self.add_participant).grid(row=3, column=2)
 		with open('events.csv', 'r') as eventfile:
 			r = csv.reader(eventfile)
-			options = []
+			option = []
 			for line in r:
-				options.append(line[0])
+				option.append(line[0])
+		options = list(set(option))
 		variable = tk.StringVar(self)
 		variable.set(options[0])
 
-		select = tk.OptionMenu(self, variable,*options).grid(row =2,column =1,padx=10,pady=10)
+		self.select = tk.OptionMenu(self, variable,*options).grid(row =2,column =1,padx=10,pady=10)
+	
+		self.event = variable.get()
 
-
+		
 	def add_participant(self):
 		
 		# Add code for adding event to participants.csv
@@ -117,7 +121,7 @@ class Add_participants_page(tk.Frame):
 		print(self.ename, self.eprice)
 		with open('participants.csv','a',newline="") as f:
 			wr=csv.writer(f, dialect='excel')
-			wr.writerow([self.ename, self.eprice])
+			wr.writerow([self.ename, self.eprice, self.event])
 
 
 
@@ -138,16 +142,22 @@ class See_participants_page(tk.Frame):
 		self.textbox.grid(rowspan = 5,padx=10, pady =5)
 		self.back.grid(row=7, padx=5, pady =5)
 
+
+		
+
+
+
 	def view_participant(self):
 		with open("participants.csv","r") as myfile:
 
 			rd=csv.reader(myfile)
-			for line in rd :
+			for i,line in enumerate(rd) :
 				print(f"{line[0]} - {line[1]}")
-				self.textbox.insert("0.0",f"{line[0]},{line[1]} \n")
-
+				self.textbox.insert("0.0",f"{line[0]}\t  {line[1]}\t  {line[2]}\n")
 		
 if __name__ =="__main__":
+	
+
 	a = EventManagement()
 	a.mainloop()
 
