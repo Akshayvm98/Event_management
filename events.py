@@ -1,11 +1,19 @@
+''' Event Management Application  -  4 classes are defined 
+          1. EventManagement - which defines windows,frames it has method called show frame 
+          2. Menu Page - defines all buttons in first frame
+          3. Event_Page - adds the event name and price
+          4. Add_Participant_page - adds the participant, college, event
+          5. See_participant_page - allows to see the participants'''
 
+'''*************************************************************************************************'''
+import requirements
 import tkinter as tk
 import csv
 
 
-
-
 class EventManagement(tk.Tk):
+
+
 	def __init__(self,*args, **kwargs):
 		tk.Tk.__init__(self, *args, **kwargs)
 		container = tk.Frame(self)
@@ -19,20 +27,26 @@ class EventManagement(tk.Tk):
 			frame = F(parent=container, controller=self)
 			self.frames[page_name] = frame
 			frame.grid(row =0, column = 0, sticky = 'nsew')
-
 		self.show_frame("Menu_page")
+
 	def show_frame(self, page_name):
-		# Add code for displaying Corresponding Frame.
+		#code for displaying Corresponding Frame.
+
 		frame = self.frames[page_name]
 		frame.tkraise()
 
 
+'''*************************************************************************************************************'''
+
+
 class Menu_page(tk.Frame):
+
+	''' variables - button1, button2, button3   '''
+					
 
 	def __init__(self, parent, controller):
 		tk.Frame.__init__(self, parent)
 		self.controller = controller
-		#Add code here(Buttons for linking to different frames)
 		button1 = tk.Button(self, text = "Add Events",command = lambda: controller.show_frame("Event_page"),padx=5)
 		button2 = tk.Button(self, text = "Add Participants",command = lambda: controller.show_frame("Add_participants_page"))
 		button3 = tk.Button(self, text = "See Participants",command = lambda: controller.show_frame("See_participants_page"))
@@ -40,7 +54,17 @@ class Menu_page(tk.Frame):
 		button2.grid(row = 4, column = 3, padx=20, pady =20, sticky = 'nsew')
 		button3.grid(row = 8,column =1,columnspan=2,padx=20, pady =20,sticky = 'nsew' )
 
+
+'''******************************************************************************************************************'''
+
+
 class Event_page(tk.Frame):
+
+	''' ename and eprice to get name and price from textbox
+		event_name and price are for labels
+		name_text, price_text are for Textboxes
+		back and submit are for buttons'''
+
 
 
 	def add_event(self):
@@ -50,9 +74,6 @@ class Event_page(tk.Frame):
 			with open('events.csv','a',newline="") as f:
 				wr=csv.writer(f, dialect='excel')
 				wr.writerow([self.ename,self.eprice])
-
-
-	
 
 
 	def __init__(self, parent, controller):
@@ -73,15 +94,18 @@ class Event_page(tk.Frame):
 		
 
 		
-		
+'''***************************************************************************************************************'''		
 
 
-	
-	
-
-		
 		
 class Add_participants_page(tk.Frame):
+
+
+	''' participant_name, college_name, select_label are for labels
+		particpant_name_text, college_name_text are for textboxes
+		back and submit are buttons 
+		ename and eprice to get the value from text box'''
+
 
 	def __init__(self, parent, controller):
 		tk.Frame.__init__(self, parent)
@@ -99,23 +123,23 @@ class Add_participants_page(tk.Frame):
 		self.back = tk.Button(self, text="Back",command=lambda: controller.show_frame("Menu_page"),padx=5)
 		self.back.grid(row=3,column = 0,padx=10, pady=15)
 		self.submit = tk.Button(self, text = "Submit", command =self.add_participant).grid(row=3, column=2)
+
 		with open('events.csv', 'r') as eventfile:
 			r = csv.reader(eventfile)
-			option = []
+			option = []                # To store the event name
 			for line in r:
-				option.append(line[0])
-		options = list(set(option))
+				option.append(line[0]) 
+		options = list(set(option))		#to obtain only unique events 
 		variable = tk.StringVar(self)
-		variable.set(options[0])
+		variable.set(options[0])		#Setting the default event
 
 		self.select = tk.OptionMenu(self, variable,*options).grid(row =2,column =1,padx=10,pady=10)
-	
 		self.event = variable.get()
-
 		
 	def add_participant(self):
 		
-		# Add code for adding event to participants.csv
+		#  code for adding event to participants.csv
+
 		self.ename = self.participant_name_text.get("1.0","end-1c")
 		self.eprice=self.college_name_text.get("1.0","end-1c")
 		print(self.ename, self.eprice)
@@ -125,12 +149,15 @@ class Add_participants_page(tk.Frame):
 
 
 
+
+'''***************************************************************************************************************'''
 		
 				
-
-
-
 class See_participants_page(tk.Frame):
+
+	''' textbox for text
+		back and view are buttons'''
+
 
 	def __init__(self, parent, controller):
 		tk.Frame.__init__(self, parent)
@@ -143,10 +170,6 @@ class See_participants_page(tk.Frame):
 		self.back.grid(row=7, padx=5, pady =5)
 
 
-		
-
-
-
 	def view_participant(self):
 		with open("participants.csv","r") as myfile:
 
@@ -154,10 +177,13 @@ class See_participants_page(tk.Frame):
 			for i,line in enumerate(rd) :
 				print(f"{line[0]} - {line[1]}")
 				self.textbox.insert("0.0",f"{line[0]}\t  {line[1]}\t  {line[2]}\n")
-		
-if __name__ =="__main__":
-	
 
+
+'''**********************************************************************************************************************'''
+		
+
+
+if __name__ =="__main__":
 	a = EventManagement()
 	a.mainloop()
 
