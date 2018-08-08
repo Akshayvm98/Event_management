@@ -1,7 +1,8 @@
-Event_management Mini Project
+Event Management Desktop Application 
 ---------------------------------------------------------------------------------------------------------------------------
 
-This is the Event_Management mini project that is done by using python module called tkinter that lets to add the events, add the participants and View the participant
+Event Management Desktop Application is written by using python framework called tkinter. 
+Some functionalities of this application is it lets to add events, add participants and View the participants 
 
 Project Setup & Important Files
 ------------------------------------------------
