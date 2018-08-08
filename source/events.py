@@ -74,7 +74,7 @@ class Event_page(tk.Frame):
 			self.eprice=self.price_text.get("1.0","end-1c")
 			self.name_text.delete("1.0","end")
 			self.price_text.delete("1.0" ,"end")
-			print(self.ename, self.eprice)
+			#print(self.ename, self.eprice)
 			with open('events.csv','a',newline="") as f:
 				wr=csv.writer(f, dialect='excel')
 				wr.writerow([self.ename,self.eprice])
@@ -150,7 +150,7 @@ class Add_participants_page(tk.Frame):
 		self.eprice=self.college_name_text.get("1.0","end-1c")
 		self.participant_name_text.delete("1.0","end")
 		self.college_name_text.delete("1.0","end")
-		print(self.ename, self.eprice)
+		#print(self.ename, self.eprice)
 		with open('participants.csv','a',newline="") as f:
 			wr=csv.writer(f, dialect='excel')
 			wr.writerow([self.ename, self.eprice, self.event])
