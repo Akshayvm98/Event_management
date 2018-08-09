@@ -1,3 +1,6 @@
+
+ Event_management
+
 Event Management Desktop Application 
 ---------------------------------------------------------------------------------------------------------------------------
 
@@ -23,3 +26,4 @@ Navigate to the project folder
 Run main.py to execute the program
 
 	$ python events.py
+

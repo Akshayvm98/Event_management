@@ -188,10 +188,18 @@ class See_participants_page(tk.Frame):
 
 
 '''**********************************************************************************************************************'''
+
 		
 
 
 if __name__ =="__main__":
+	with open('events.csv','a',newline="") as f:
+				wr=csv.writer(f, dialect='excel')
+				wr.writerow(["GoogleIt",40])
+				wr.writerow(["Codeathon",30])
+				wr.writerow(["FIFA",50])
+	
+
 	a = EventManagement()
 	a.mainloop()
 
