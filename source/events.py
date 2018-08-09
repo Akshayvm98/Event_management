@@ -70,18 +70,11 @@ class Event_page(tk.Frame):
 
 
 	def add_event(self):
-
-			self.ename = self.name_text.get("0.0","end-1c")
-			self.eprice=self.price_text.get("0.0","end-1c")
-			self.name_text.delete("0.0","end")
-			self.price_text.delete("0.0" ,"end")
-
 			self.ename = self.name_text.get("1.0","end-1c")
 			self.eprice=self.price_text.get("1.0","end-1c")
 			self.name_text.delete("1.0","end")
 			self.price_text.delete("1.0" ,"end")
 			#print(self.ename, self.eprice)
-
 			with open('events.csv','a',newline="") as f:
 				wr=csv.writer(f, dialect='excel')
 				wr.writerow([self.ename,self.eprice])
@@ -153,17 +146,10 @@ class Add_participants_page(tk.Frame):
 		
 		#  code for adding event to participants.csv
 
-
-		self.ename = self.participant_name_text.get("0.0","end-1c")
-		self.eprice=self.college_name_text.get("0.0","end-1c")
-		self.participant_name_text.delete("0.0","end")
-		self.college_name_text.delete("0.0","end")
-
 		self.ename = self.participant_name_text.get("1.0","end-1c")
 		self.eprice=self.college_name_text.get("1.0","end-1c")
 		self.participant_name_text.delete("1.0","end")
 		self.college_name_text.delete("1.0","end")
-
 		#print(self.ename, self.eprice)
 		with open('participants.csv','a',newline="") as f:
 			wr=csv.writer(f, dialect='excel')
@@ -196,11 +182,13 @@ class See_participants_page(tk.Frame):
 		with open("participants.csv","r") as myfile:
 
 			rd=csv.reader(myfile)
-			for line in rd :
-				self.textbox.insert("1.0",f"{line[0]}\t  {line[1]}\t  {line[2]}\n")
+			for i,line in enumerate(rd) :
+				print(f"{line[0]} - {line[1]}")
+				self.textbox.insert("0.0",f"{line[0]}\t  {line[1]}\t  {line[2]}\n")
 
 
 '''**********************************************************************************************************************'''
+
 		
 
 
@@ -210,6 +198,8 @@ if __name__ =="__main__":
 				wr.writerow(["GoogleIt",40])
 				wr.writerow(["Codeathon",30])
 				wr.writerow(["FIFA",50])
+	
+
 	a = EventManagement()
 	a.mainloop()
 
